@@ -42,13 +42,13 @@ class MyUser(AbstractBaseUser):
 		max_length=255,
 		unique=True,
 	)
-	# date_of_birth = models.DateField()
-	# is_active = models.BooleanField(default=True)
-	# is_admin = models.BooleanField(default=False)
-	# gioi_tinh = models.CharField(max_length=255)
-	# user_name = models.CharField(max_length=255)
-	# is_catt = models.BooleanField(default=False)
-	# is_lock = models.BooleanField(default=False)
+	date_of_birth = models.DateField(null = True)
+	is_active = models.BooleanField(default=True,null = True)
+	is_admin = models.BooleanField(default=False,null = True)
+	gioi_tinh = models.CharField(max_length=255,null = True)
+	user_name = models.CharField(max_length=255,null = True)
+	# is_catt = models.BooleanField(default=False,null = True)
+	is_lock = models.BooleanField(default=False,null = True)
 	objects = MyUserManager()
 
 	USERNAME_FIELD = 'email'

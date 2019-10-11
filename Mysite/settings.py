@@ -76,26 +76,26 @@ WSGI_APPLICATION = 'Mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-
-}
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'sql_server.pyodbc',
-#         'HOST': '127.0.0.1',
-#         'USER' : 'sa',
-#         'PASSWORD': 'Anhkuteo12345',
-#         'NAME': 'abc',
-#         'PORT' : '1433',
-#         'OPTIONS': {
-#             'driver' : 'ODBC Driver 17 for SQL Server',
-#         }
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
+
 # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'sql_server.pyodbc',
+        'HOST': '127.0.0.1',
+        'USER' : 'sa',
+        'PASSWORD': 'Anhkuteo12345',
+        'NAME': 'mysite',
+        'PORT' : '1433',
+        'OPTIONS': {
+            'driver' : 'ODBC Driver 17 for SQL Server',
+        }
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -136,3 +136,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'Admin.MyUser'
+LOGOUT_REDIRECT_URL = 'login'
+
+CACHES = {
+    'default': {
+    'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+    'LOCATION': '127.0.0.1:11211',
+    }
+}
