@@ -48,14 +48,19 @@ def login(request):
 			print(request.user)
 			with connection.cursor() as cursor:
 				sql_sa = cursor.execute("SELECT email, password, is_lock FROM [dbo].[Admin_myuser] where is_admin = 1").fetchall()
-				Caches_BP = cache.set('BP_%s' % email, email)
-				Caches_BP2 = cache.set('BP2_%s' % email, password)
-				Caches_BP3 = cache.set('BP3_%s' % email, sql_sa[0][2])
+				if sql_sa is not None:
+					cache.clear()
+					print("==========Savecatched=============")
+					Caches_BP = cache.set('BP', email,version=2)
+					Caches_BP2 = cache.set('BP2', password)
+					Caches_BP3 = cache.set('BP3', sql_sa[0][0])
+					print(cache.get('BP',version=2))
+					cache.get_or_set('ss', 'my new value', 100)
 			return HttpResponseRedirect('/admin2')
 		else:
 			return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
-# @login_required(login_url='/login')
+@login_required(login_url='/login')
 def user(request):
 	if request.method == "GET":
 		ax = request.user
@@ -64,7 +69,7 @@ def user(request):
 		with connection.cursor() as cursor:
 			SQL_SelectAllUser = cursor.execute("SELECT * from [dbo].[Admin_myuser]").fetchall()
 			ListUser = [ list(x) for x in SQL_SelectAllUser]
-			print('ListUser')
+			print(cache.get('BP'))
 		# namecus = str(cache.get('BP_sylv@gmail.com'))
 		# namecus2 = str(cache.get('BP2_sylv@gmail.com'))
 		# namecus3 = str(cache.get('BP3_sylv@gmail.com'))
@@ -90,8 +95,8 @@ def  register(request):
 		userName = request.POST.get('firstName')
 		print(authenticate(email = email, password = password))
 		user = authenticate(email = email, password = password)
-		chckLogin = log_in(request, user)
-		print(chckLogin)
+		# chckLogin = log_in(request, user)
+		# print(chckLogin)
 		if user is  not None:
 			return HttpResponse("has exist")
 		saveUser = MyUser.objects.create_user(email, password)
