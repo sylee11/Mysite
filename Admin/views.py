@@ -105,3 +105,8 @@ def  register(request):
 		return HttpResponseRedirect("/login")
 
 	return render(request, 'register.html')
+
+def testDataTable(request):
+	if request.method == "POST":
+		return HttpResponse(json.dump({"first_name": "Airi","last_name": "Satou","position": "Accountant","office": "Tokyo","start_date": "28th Nov 08","salary": "$162,700"}),  content_type="application/json")
+	return render(request, 'testDataTable.html')
