@@ -86,12 +86,14 @@ WSGI_APPLICATION = 'Mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'sql_server.pyodbc',
-        'HOST': 'ADMIN\SQLEXPRESS',
+        # 'HOST': 'ADMIN\SQLEXPRESS',
+        'HOST': '127.0.0.1',
         'USER' : 'sa',
         'PASSWORD': 'Anhkuteo12345',
         'NAME': 'mysite',
         'OPTIONS': {
-            'driver' : 'SQL Server Native Client 11.0',
+            # 'driver' : 'SQL Server Native Client 11.0',
+            'driver' : 'ODBC Driver 17 for SQL Server',
         }
     }
 }
