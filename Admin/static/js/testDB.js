@@ -6,19 +6,24 @@ function test(){
         "processing": true,
         "serverSide": true,
         "ajax": {
-            "url": "/test",
+            "url": "/test/",
             "type": "POST"
         },
         Destroy: true,
         retrieve: true,
-        "columns": [
-            { "data": "first_name" },
-            { "data": "last_name" },
-            { "data": "position" },
-            { "data": "office" },
-            { "data": "start_date" },
-            { "data": "salary" }
-        ]
+        start : '1',
+        // "columns": [
+        //     { "data": "first_name" },
+        //     { "data": "last_name" },
+        //     { "data": "position" },
+        //     { "data": "office" },
+        //     { "data": "start_date" },
+        //     { "data": "salary" }
+        // ]
     } );
 	// } );
 }
+$(document).ready(function(){
+    $('#dataTable2').DataTable()
+
+})

@@ -9,7 +9,9 @@ from django.contrib.auth import logout
 from . forms import LoginForm
 from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
+import json
 # Create your views here.
 @login_required(login_url='/login')
 def index(request):
@@ -106,7 +108,15 @@ def  register(request):
 
 	return render(request, 'register.html')
 
+@csrf_exempt
 def testDataTable(request):
 	if request.method == "POST":
-		return HttpResponse(json.dump({"first_name": "Airi","last_name": "Satou","position": "Accountant","office": "Tokyo","start_date": "28th Nov 08","salary": "$162,700"}),  content_type="application/json")
+		with connection.cursor() as cursor:
+			sql_test = cursor.execute("SELECT id, email,is_admin,is_lock,gioi_tinh from [dbo].[Admin_myuser] ").fetchall()
+			listTest = [ list(x) for x in sql_test ]
+		#listA = {"first_name": "Airi","last_name": "Satou","position": "Accountant","office": "Tokyo","start_date": "28th Nov 08","salary": "$162,700"}
+		listA = [["first_name","last_name","position","office","start_date","salary",22],["first_name","last_name","token","office","start_date","salary"]]
+		print(listTest)
+		return HttpResponse(json.dumps({ "data":listTest}),  content_type="application/json")
+
 	return render(request, 'testDataTable.html')
